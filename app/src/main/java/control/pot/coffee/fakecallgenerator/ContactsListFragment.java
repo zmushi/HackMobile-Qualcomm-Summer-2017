@@ -1,12 +1,20 @@
 package control.pot.coffee.fakecallgenerator;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.provider.ContactsContract;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 
 /**
@@ -17,7 +25,29 @@ import android.view.ViewGroup;
  * Use the {@link ContactsListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ContactsListFragment extends Fragment {
+public class ContactsListFragment extends Fragment implements
+        LoaderManager.LoaderCallbacks<Cursor>,
+        AdapterView.OnItemClickListener{
+
+    //Column from cursore and which views to bing them too
+    @SuppressLint("InlinedApi")
+    private static final String[] FROM_COLUMNS = {
+            Build.VERSION.SDK_INT
+                    >= Build.VERSION_CODES.HONEYCOMB ?
+                    ContactsContract.Contacts.DISPLAY_NAME_PRIMARY :
+                    ContactsContract.Contacts.DISPLAY_NAME
+    };
+
+    private final static int[] TO_IDS = {
+            R.id.contacts_list_item_name_textView
+    };
+
+    ListView mContactsList;
+    private SimpleCursorAdapter mCursorAdapter;
+
+    Long mContactId;
+    Long mContactKey;
+    Uri mContactUri;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
