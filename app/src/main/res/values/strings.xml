@@ -6,5 +6,6 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="contact">Mom</string>
+    <string name="phone_nmber">1 858-543-5343</string>
 </resources>
