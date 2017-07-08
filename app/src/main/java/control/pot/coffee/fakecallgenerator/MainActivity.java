@@ -1,21 +1,19 @@
 package control.pot.coffee.fakecallgenerator;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 
 public class MainActivity extends AppCompatActivity implements
         ContactsListFragment.ContactsListFragmentInterface {
 
     private EditText searchEditText;
     private String searchString;
-    private Contact contact;
 
 
     //Variable and constants to track fragment states
@@ -35,15 +33,29 @@ public class MainActivity extends AppCompatActivity implements
 
     //called when contact is pressed in ContactsListFragment
     public void onContactClicked(String lookupKey)  {
-        //TODO code method
-        /*
-        replace fragments
-        create contact
-        load contact
-         */
+        SharedPreferences sharedPrefs = getPreferences(0);
+        String name   = sharedPrefs.getString(Constants.PREFS_KEY_CONTACT_MAIN_NAME, null);
+        String number = sharedPrefs.getString(Constants.PREFS_KEY_CONTACT_MAIN_NUMBER, null);
+        int photo = Integer.parseInt(sharedPrefs.getString(Constants.PREFS_KEY_CONTACT_MAIN_PHOTO, null));
 
-        contact = new Contact(lookupKey);
 
+        ContactDisplayFragment fragmentDisplay =
+                ContactDisplayFragment.newInstance(name, number, photo);
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        switch (fragState) {
+            case STATE_LIST:
+            case STATE_DISPLAY:
+                fragmentTransaction.replace(R.id.result_layout, fragmentDisplay);
+                break;
+            case STATE_EMPTY:
+            default:
+                fragmentTransaction.add(R.id.result_layout, fragmentDisplay);
+                break;
+        }
+        fragmentTransaction.commit();
+        fragState = STATE_DISPLAY;
     }
 
     //Called when search button is pressed
