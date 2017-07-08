@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,9 +15,12 @@ import android.widget.EditText;
 import android.widget.RemoteViews;
 import android.widget.Spinner;
 
+import static android.webkit.ConsoleMessage.MessageLevel.LOG;
+
 public class WidgetConfigurationActivity extends AppCompatActivity implements
     ContactsListFragment.ContactsListFragmentInterface,
     AdapterView.OnItemSelectedListener {
+        private static final String TAG = "ConfigActivity";
         private int mAppWidgetId;
 
         private EditText searchEditText;
@@ -134,6 +138,7 @@ public class WidgetConfigurationActivity extends AppCompatActivity implements
     //Called when call button is pressed
     //Finishes configuration
     public void placeCall(View view) {
+        Log.v(TAG, "Configure Widget has been called");
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         if (extras != null) {
@@ -141,7 +146,7 @@ public class WidgetConfigurationActivity extends AppCompatActivity implements
                     AppWidgetManager.EXTRA_APPWIDGET_ID,
                     AppWidgetManager.INVALID_APPWIDGET_ID);
         }
-
+        Log.v(TAG, "Configure Widget has been called");
 
         SharedPreferences sharedPrefs = this.getSharedPreferences(Constants.PREFS_WIDGET_NAME, 0);
         SharedPreferences.Editor editor = sharedPrefs.edit();
