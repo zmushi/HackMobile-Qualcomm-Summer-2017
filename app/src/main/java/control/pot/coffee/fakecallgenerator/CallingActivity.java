@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Vibrator;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
@@ -56,6 +57,7 @@ public class CallingActivity extends AppCompatActivity {
     private String name;
     private String number;
     private String photoUri;
+    private Vibrator v;
 
     private Bundle extras;
 
@@ -157,32 +159,33 @@ public class CallingActivity extends AppCompatActivity {
         catch (NullPointerException e){
             name = "Mom";
             number = "1 858-453-5343";
-            photoUri = "contact_picture";
+            photoUri = null;
         }
 
         // Set the contact image
-        photo = Uri.parse(photoUri);
-        final ImageView imageView = (ImageView) findViewById(R.id.contact_picture);
+        if(photoUri == null){
 
-        //View v =  inflater.inflate(R.layout.fragment_contact_display, container, false);
-
-        //ImageView imageView = (ImageView) v.findViewById(R.id.fragment_contact_display_photo_imageView);
-
-
-        //NumberFormat.Field idField = getDeclaredField(photo);
-        //photoId = idField.getInt(idField);
-        imageView.setImageURI(photo);
-        // imageView.setImageResource(images[photo]); // currImage will be passed from the contacts
+        }
+        else{
+            photo = Uri.parse(photoUri);
+            final ImageView imageView = (ImageView) findViewById(R.id.contact_picture);
+            imageView.setImageURI(photo);
+        }
 
         // Getting the default ringTone to play
         final MediaPlayer player = MediaPlayer.create(this, Settings.System.DEFAULT_RINGTONE_URI);
         player.start();
+
+        //Phone vibrates
+        v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        v.vibrate(10000000);
 
         //FOR WHEN THE ACCEPT BUTTON IS PRESSED
         mAnswerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 player.stop();
+                v.cancel();
             }
         });
 
@@ -191,6 +194,7 @@ public class CallingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 player.stop();
+                v.cancel();
 
                 //Schedule next activity
                 int repeats = extras.getInt(Constants.EXTRA_KEY_REPEATS);
