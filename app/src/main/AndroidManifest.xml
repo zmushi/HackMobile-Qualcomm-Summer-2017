@@ -2,18 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="control.pot.coffee.fakecallgenerator">
 
-    <receiver android:name=".FakeCallWidgetProvider">
-        <intent-filter>
-            <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
-        </intent-filter>
-
-        <meta-data
-            android:name="android.appwidget.provider"
-            android:resource="@xml/fake_call_widget_provider_info" />
-    </receiver>
-
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
+        <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission" />
     <uses-permission android:name="android.permission.VIBRATE"/>
 
@@ -41,6 +30,17 @@
             android:showOnLockScreen="true"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".WidgetConfigurationActivity"></activity>
+
+        <receiver android:name=".WidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/fake_call_widget_provider_info" />
+        </receiver>
     </application>
 
 </manifest>

@@ -18,5 +18,15 @@ public class Constants {
     public static final String EXTRA_KEY_REPEATS = PREFIX + "extra_repeats";
 
     public static final String ACTION_CALL  = PREFIX + "action_call";
+    public static final String ACTION_WIDGET_CLICK = PREFIX + "action_widget_click";
 
+
+    public static final String PREFS_WIDGET_NAME = PREFIX + "pref.widget.name";
+    public static final String PREFS_WIDGET_ID = PREFIX + "pref.widget_id";
+    public static String PREFS_WIDGET_NAME(String str)      { return PREFIX + "pref.widget_name.id=" + str;}
+    public static String PREFS_WIDGET_NUMBER(String str)    { return PREFIX + "pref.widget_number.id=" + str;}
+    public static String PREFS_WIDGET_PHOTO(String str)     { return PREFIX + "pref.widget_photo.id=" + str;}
+    public static String PREFS_WIDGET_DELAY(String str)     { return PREFIX + "pref.widget_delay.id=" + str;}
+    public static String PREFS_WIDGET_INTERVAL(String str)  { return PREFIX + "pref.widget_interval.id=" + str;}
+    public static String PREFS_WIDGET_REPEATS(String str)   { return PREFIX + "pref.widget_repeats.id=" + str;}
 }
