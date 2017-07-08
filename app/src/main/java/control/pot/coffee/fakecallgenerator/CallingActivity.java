@@ -112,7 +112,7 @@ public class CallingActivity extends AppCompatActivity {
 
         audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE); // To later play the ringtone
 
-        muteAll();
+        //muteAll();
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);

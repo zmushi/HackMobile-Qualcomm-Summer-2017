@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="text_size">18dp</dimen>
+
     <dimen name="fragment_container_height">170dp</dimen>
     <dimen name="fragment_container_width">290dp</dimen>
 
-    <dimen name="fragment_contact_list_item_height">30dp</dimen>
+    <dimen name="fragment_contact_list_item_height">40dp</dimen>
+    <dimen name="fragment_contact_list_item_name_width">100dp</dimen>
 
     <dimen name="fragment_contact_display_photo_height">100dp</dimen>
     <dimen name="fragment_contact_display_photo_width">100dp</dimen>
 
     <dimen name="fragment_contact_display_text_height">20dp</dimen>
     <dimen name="fragment_contact_display_text_width">150dp</dimen>
+
 </resources>
