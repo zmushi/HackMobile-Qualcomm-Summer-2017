@@ -46,47 +46,75 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ImageButton
+                android:id="@+id/acceptButton"
+                android:layout_width="68dp"
+                android:layout_height="55dp"
+                android:background="@android:color/black"
+                android:tint="@android:color/background_dark"
+                app:srcCompat="@android:drawable/screen_background_light_transparent"
+                tools:layout_editor_absoluteX="263dp"
+                tools:layout_editor_absoluteY="496dp" />
+
             <View
                 android:id="@+id/green_circle"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:background="@drawable/green_circle"
-                tools:layout_editor_absoluteX="285dp"
-                tools:layout_editor_absoluteY="514dp" />
+                tools:layout_editor_absoluteY="491dp"
+                android:layout_marginRight="53dp"
+                app:layout_constraintRight_toRightOf="parent" />
 
             <ImageView
                 android:id="@+id/answer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@android:drawable/stat_sys_phone_call"
-                tools:layout_editor_absoluteY="527dp"
-                tools:layout_editor_absoluteX="298dp" />
+                tools:layout_editor_absoluteY="511dp"
+                tools:layout_editor_absoluteX="290dp" />
+
+            <ImageButton
+                android:id="@+id/rejectButton"
+                android:layout_width="68dp"
+                android:layout_height="55dp"
+                android:background="@android:color/black"
+                android:tint="@android:color/background_dark"
+                app:srcCompat="@android:drawable/screen_background_light_transparent"
+                tools:layout_editor_absoluteX="64dp"
+                tools:layout_editor_absoluteY="496dp" />
+
 
             <View
                 android:id="@+id/red_circle"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:background="@drawable/red_circle"
-                tools:layout_editor_absoluteX="71dp"
-                tools:layout_editor_absoluteY="514dp" />
+                tools:layout_editor_absoluteY="491dp"
+                app:layout_constraintRight_toLeftOf="@+id/green_circle"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                app:layout_constraintHorizontal_bias="0.287" />
 
             <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@android:drawable/sym_call_missed"
-                tools:layout_editor_absoluteX="83dp"
-                tools:layout_editor_absoluteY="521dp" />
+                android:id="@+id/reject"
+                android:layout_width="21dp"
+                android:layout_height="24dp"
+                android:rotation="135"
+                app:srcCompat="@android:drawable/stat_sys_phone_call"
+                tools:layout_editor_absoluteY="511dp"
+                tools:layout_editor_absoluteX="83dp" />
 
             <ImageView
                 android:id="@+id/contact_picture"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="91dp"
+                android:layout_height="122dp"
                 android:layout_marginTop="16dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@mipmap/ic_launcher_round" />
+                app:srcCompat="@mipmap/ic_launcher_round"
+                app:layout_constraintHorizontal_bias="0.501" />
 
 
         </android.support.constraint.ConstraintLayout>
