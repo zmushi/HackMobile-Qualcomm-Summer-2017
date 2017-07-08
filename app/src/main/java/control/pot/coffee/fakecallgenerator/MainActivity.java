@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +15,10 @@ public class MainActivity extends AppCompatActivity implements
 
     private EditText searchEditText;
     private String searchString;
+
+    private String name;
+    private String number;
+    private Uri photo;
 
 
     //Variable and constants to track fragment states
@@ -34,13 +39,12 @@ public class MainActivity extends AppCompatActivity implements
     //called when contact is pressed in ContactsListFragment
     public void onContactClicked(String lookupKey)  {
         SharedPreferences sharedPrefs = getPreferences(0);
-        String name   = sharedPrefs.getString(Constants.PREFS_KEY_CONTACT_MAIN_NAME, null);
-        String number = sharedPrefs.getString(Constants.PREFS_KEY_CONTACT_MAIN_NUMBER, null);
-        int photo = Integer.parseInt(sharedPrefs.getString(Constants.PREFS_KEY_CONTACT_MAIN_PHOTO, null));
-
+        name   = sharedPrefs.getString(Constants.PREFS_KEY_CONTACT_MAIN_NAME, null);
+        number = sharedPrefs.getString(Constants.PREFS_KEY_CONTACT_MAIN_NUMBER, null);
+        String photoStr = sharedPrefs.getString(Constants.PREFS_KEY_CONTACT_MAIN_PHOTO, null);
 
         ContactDisplayFragment fragmentDisplay =
-                ContactDisplayFragment.newInstance(name, number, photo);
+                ContactDisplayFragment.newInstance(name, number, photoStr);
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 

@@ -11,6 +11,7 @@ import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
 import android.content.Loader;
+import android.util.Log;
 import android.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,7 @@ import android.widget.ListView;
 public class ContactsListFragment extends Fragment implements
         LoaderManager.LoaderCallbacks<Cursor>,
         AdapterView.OnItemClickListener{
+    private static final String TAG = "ContactsListFragment";
 
     private ContactsListFragmentInterface mListener;
 
@@ -68,12 +70,9 @@ public class ContactsListFragment extends Fragment implements
              */
                     ContactsContract.Data._ID,
                     ContactsContract.Data.LOOKUP_KEY,
-                    // The primary display name
-                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
-                            ContactsContract.Data.DISPLAY_NAME_PRIMARY :
-                            ContactsContract.Data.DISPLAY_NAME,
+                    ContactsContract.Contacts.DISPLAY_NAME_PRIMARY,
                     ContactsContract.CommonDataKinds.Phone.NUMBER,
-                    ContactsContract.CommonDataKinds.Photo.PHOTO_ID
+                    ContactsContract.CommonDataKinds.Photo.PHOTO_THUMBNAIL_URI
             };
 
     //Selection criteria for search
@@ -156,6 +155,7 @@ public class ContactsListFragment extends Fragment implements
         }
     }
 
+
     @Override
     public void onItemClick(
             AdapterView<?> parent, View item, int position, long rowID) {
@@ -177,18 +177,23 @@ public class ContactsListFragment extends Fragment implements
          */
 
 
+        Log.i(TAG, "Attempting to get data contact info from cursor");
 
         //Extract contact details from cursor
         String name = cursor.getString(CONTACT_KEY_NAME);
         String number = cursor.getString(CONTACT_KEY_NUMBER);
-        int photo = cursor.getInt(CONTACT_KEY_PHOTO);
+        String photoStr = cursor.getString(CONTACT_KEY_PHOTO);
+
+        Log.i(TAG, "Got data contact info from cursor");
+        Log.v(TAG, name + " | " + number + " | " + photoStr);
+
 
         //put contact details in shared prefs
         SharedPreferences sharedPrefs = getActivity().getPreferences(0);
         SharedPreferences.Editor editor = sharedPrefs.edit();
         editor.putString(Constants.PREFS_KEY_CONTACT_MAIN_NAME, name);
         editor.putString(Constants.PREFS_KEY_CONTACT_MAIN_NUMBER, number);
-        editor.putString(Constants.PREFS_KEY_CONTACT_MAIN_PHOTO, Integer.toString(photo));
+        editor.putString(Constants.PREFS_KEY_CONTACT_MAIN_PHOTO, photoStr);
         editor.commit();
 
         onContactPressed(mContactKey);
@@ -208,11 +213,16 @@ public class ContactsListFragment extends Fragment implements
          * stores it in the selection array
          */
 
+        Log.v(TAG, "Constructing new cursor");
+        for (int i = 0; i < PROJECTION.length; i++) {
+            Log.v(TAG, "Projection col " + i + " : " + PROJECTION[i]);
+        }
+
         mSelectionArgs[0] = "%" + mSearchString + "%";
         // Starts the query
         return new CursorLoader(
                 getActivity(),
-                ContactsContract.Contacts.CONTENT_URI,
+                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
                 PROJECTION,
                 SELECTION,
                 mSelectionArgs,
@@ -222,6 +232,7 @@ public class ContactsListFragment extends Fragment implements
 
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         // Put the result Cursor in the adapter for the ListView
+        Log.i(TAG, "Cursor has finished loading");
         mCursorAdapter.swapCursor(cursor);
     }
 

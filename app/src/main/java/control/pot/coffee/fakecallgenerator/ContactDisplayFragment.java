@@ -4,9 +4,16 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.util.zip.Inflater;
+
+import static android.content.ContentValues.TAG;
 
 
 /**
@@ -23,7 +30,7 @@ public class ContactDisplayFragment extends Fragment {
 
     private String name;
     private String number;
-    private int photo;
+    private Uri photo;
 
 
     public ContactDisplayFragment() {
@@ -37,23 +44,26 @@ public class ContactDisplayFragment extends Fragment {
      * @return A new instance of fragment ContactDisplayFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ContactDisplayFragment newInstance(String name, String number, int photo) {
+    public static ContactDisplayFragment newInstance(String name, String number, String photoStr) {
         ContactDisplayFragment fragment = new ContactDisplayFragment();
         Bundle args = new Bundle();
         args.putString(ARG_NAME, name);
         args.putString(ARG_NUMBER, number);
-        args.putString(ARG_PHOTO_ID, Integer.toString(photo));
+        args.putString(ARG_PHOTO_ID, photoStr);
         fragment.setArguments(args);
         return fragment;
+
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            name = getArguments().getString(ARG_NAME);
+            name = getArguments().getString(ARG_NAME, "No name found");
             number = getArguments().getString(ARG_NUMBER);
-            photo = Integer.parseInt(getArguments().getString(ARG_PHOTO_ID));
+            String photoStr = getArguments().getString(ARG_PHOTO_ID);
+            photo = null;
+            if (photoStr != null) photo = Uri.parse(photoStr);
         }
     }
 
@@ -61,7 +71,24 @@ public class ContactDisplayFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_contact_display, container, false);
+        View v =  inflater.inflate(R.layout.fragment_contact_display, container, false);
+
+        ImageView imageView = (ImageView) v.findViewById(R.id.fragment_contact_display_photo_imageView);
+        TextView nameTextView = (TextView) v.findViewById(R.id.fragment_contact_display_name_textView);
+        TextView numberTextView = (TextView) v.findViewById(R.id.fragment_contact_display_number_textView);
+
+        nameTextView.setText(name);
+        numberTextView.setText(number);
+
+        if (photo != null) {
+            imageView.setImageURI(photo);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        }
+        else {
+            Log.v(TAG, "Image is Null");
+        }
+
+        return v;
     }
 
     @Override
