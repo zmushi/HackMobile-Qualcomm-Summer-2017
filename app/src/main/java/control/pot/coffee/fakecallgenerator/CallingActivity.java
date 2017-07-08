@@ -239,9 +239,14 @@ public class CallingActivity extends AppCompatActivity {
                 player.stop();
                 v.cancel();
 
-                // TODO mute other sounds
+                mAnswerView.setVisibility(View.INVISIBLE);
+                mRejectView.setVisibility(View.INVISIBLE);
 
                 // Change View to look like in call
+
+                //setContentView(R.layout.activity_incall);
+
+
                 mAnswerCallView.setVisibility(View.INVISIBLE);
                 mAnswerCallCircleView.setVisibility(View.INVISIBLE);
                 mAnswerHandleCallView.setVisibility(View.INVISIBLE);
@@ -260,6 +265,7 @@ public class CallingActivity extends AppCompatActivity {
                 layoutParam.screenBrightness = 0;
                 layoutParam.flags |= WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
                 getWindow().setAttributes(layoutParam);
+                
 
 
                 /*
@@ -292,6 +298,8 @@ public class CallingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 player.stop();
                 v.cancel();
+
+
 
                 //Schedule next activity
                 int repeats = extras.getInt(Constants.EXTRA_KEY_REPEATS);
