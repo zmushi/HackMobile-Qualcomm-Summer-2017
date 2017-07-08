@@ -172,12 +172,12 @@ public class ContactsListFragment extends Fragment implements
          * You can use mContactUri as the content URI for retrieving
          * the details for a contact.
          */
-        onContactPressed(mContactUri);
+        onContactPressed(mContactKey);
     }
 
-    public void onContactPressed(Uri uri) {
+    public void onContactPressed(String lookupKey) {
         if (mListener != null) {
-            mListener.onContactClicked(uri);
+            mListener.onContactClicked(lookupKey);
         }
     }
 
@@ -229,12 +229,14 @@ public class ContactsListFragment extends Fragment implements
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
+
+    //TODO code onNewSearchString method stub
     public void onNewSearchString(String searchString)   {
         mSearchString = searchString;
     }
 
     public interface ContactsListFragmentInterface {
         // TODO: Update argument type and name
-        void onContactClicked(Uri uri);
+        void onContactClicked(String lookupKey);
     }
 }
