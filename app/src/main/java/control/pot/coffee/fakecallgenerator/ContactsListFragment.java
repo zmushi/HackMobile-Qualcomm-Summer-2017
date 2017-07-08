@@ -2,6 +2,7 @@ package control.pot.coffee.fakecallgenerator;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -66,12 +67,13 @@ public class ContactsListFragment extends Fragment implements
              * this column is required.
              */
                     ContactsContract.Data._ID,
+                    ContactsContract.Data.LOOKUP_KEY,
                     // The primary display name
                     Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
                             ContactsContract.Data.DISPLAY_NAME_PRIMARY :
                             ContactsContract.Data.DISPLAY_NAME,
-                    // The contact's LOOKUP_KEY, to construct a content URI
-                    ContactsContract.Data.LOOKUP_KEY
+                    ContactsContract.CommonDataKinds.Phone.NUMBER,
+                    ContactsContract.CommonDataKinds.Photo.PHOTO_ID
             };
 
     //Selection criteria for search
@@ -84,8 +86,11 @@ public class ContactsListFragment extends Fragment implements
     // Defines the array to hold values that replace the ?
     private String[] mSelectionArgs = { mSearchString };
 
-    long CONTACT_ID_INDEX = 0;
-    long CONTACT_KEY_INDEX = 1;
+    int CONTACT_ID_INDEX = 0;
+    int CONTACT_KEY_INDEX = 1;
+    int CONTACT_KEY_NAME = 2;
+    int CONTACT_KEY_NUMBER = 3;
+    int CONTACT_KEY_PHOTO = 4;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -161,15 +166,31 @@ public class ContactsListFragment extends Fragment implements
         // Move to the selected contact
         cursor.moveToPosition(position);
         // Get the _ID value
-        mContactId = cursor.getLong((int)CONTACT_ID_INDEX);
+        mContactId = cursor.getLong(CONTACT_ID_INDEX);
         // Get the selected LOOKUP KEY
-        mContactKey = cursor.getString((int)CONTACT_KEY_INDEX);
+        mContactKey = cursor.getString(CONTACT_KEY_INDEX);
         // Create the contact's content Uri
         mContactUri = ContactsContract.Contacts.getLookupUri(mContactId, mContactKey);
         /*
          * You can use mContactUri as the content URI for retrieving
          * the details for a contact.
          */
+
+
+
+        //Extract contact details from cursor
+        String name = cursor.getString(CONTACT_KEY_NAME);
+        String number = cursor.getString(CONTACT_KEY_NUMBER);
+        int photo = cursor.getInt(CONTACT_KEY_PHOTO);
+
+        //put contact details in shared prefs
+        SharedPreferences sharedPrefs = getActivity().getPreferences(0);
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+        editor.putString(Constants.PREFS_KEY_CONTACT_MAIN_NAME, name);
+        editor.putString(Constants.PREFS_KEY_CONTACT_MAIN_NUMBER, number);
+        editor.putString(Constants.PREFS_KEY_CONTACT_MAIN_PHOTO, Integer.toString(photo));
+        editor.commit();
+
         onContactPressed(mContactKey);
     }
 
