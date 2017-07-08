@@ -5,11 +5,12 @@
     <receiver android:name=".FakeCallWidgetProvider">
         <intent-filter>
             <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
         </intent-filter>
 
         <meta-data
             android:name="android.appwidget.provider"
-            android:resource="@xml/fake_call_widget_info" />
+            android:resource="@xml/fake_call_widget_provider_info" />
     </receiver>
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -22,6 +23,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light">
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,6 +31,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".CallingActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
