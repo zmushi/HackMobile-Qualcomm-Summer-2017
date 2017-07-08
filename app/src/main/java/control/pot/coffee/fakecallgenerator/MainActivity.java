@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity implements
 
     private String name;
     private String number;
-    private Uri photo;
+    private String photoStr;
 
     //Variable and constants to track fragment states
     private String fragState  = STATE_EMPTY;
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements
         SharedPreferences sharedPrefs = getPreferences(0);
         name   = sharedPrefs.getString(Constants.PREFS_KEY_CONTACT_MAIN_NAME, null);
         number = sharedPrefs.getString(Constants.PREFS_KEY_CONTACT_MAIN_NUMBER, null);
-        String photoStr = sharedPrefs.getString(Constants.PREFS_KEY_CONTACT_MAIN_PHOTO, null);
+        photoStr = sharedPrefs.getString(Constants.PREFS_KEY_CONTACT_MAIN_PHOTO, null);
 
         ContactDisplayFragment fragmentDisplay =
                 ContactDisplayFragment.newInstance(name, number, photoStr);
@@ -131,8 +131,15 @@ public class MainActivity extends AppCompatActivity implements
 
     //Called when call button is pressed
     public void placeCall(View view) {
-        Intent intent = new Intent(this, CallingActivity.class);
-        startActivity(intent);
+        if (delay == 0 && repeat == 1) {
+            //No delay or repeats, start now
+            Intent intent = new Intent(this, CallingActivity.class);
+            startActivity(intent);
+        } else {
+            CallScheduler CS = new CallScheduler(this, delay, repeat, interval,
+                    name, number, photoStr);
+            CS.schedule();
+        }
     }
 
     private void updateSearchString()   {
