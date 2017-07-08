@@ -1,4 +1,5 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,9 +22,12 @@
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@android:color/background_dark"
+        android:backgroundTint="@android:color/background_dark"
         android:fitsSystemWindows="true">
 
         <LinearLayout
@@ -36,15 +40,57 @@
             android:orientation="horizontal"
             tools:ignore="UselessParent">
 
-            <Button
-                android:id="@+id/dummy_button"
-                style="?metaButtonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/dummy_button" />
-
         </LinearLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:id="@+id/green_circle"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/green_circle"
+                tools:layout_editor_absoluteX="285dp"
+                tools:layout_editor_absoluteY="514dp" />
+
+            <ImageView
+                android:id="@+id/answer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@android:drawable/stat_sys_phone_call"
+                tools:layout_editor_absoluteY="527dp"
+                tools:layout_editor_absoluteX="298dp" />
+
+            <View
+                android:id="@+id/red_circle"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/red_circle"
+                tools:layout_editor_absoluteX="71dp"
+                tools:layout_editor_absoluteY="514dp" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@android:drawable/sym_call_missed"
+                tools:layout_editor_absoluteX="83dp"
+                tools:layout_editor_absoluteY="521dp" />
+
+            <ImageView
+                android:id="@+id/contact_picture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@mipmap/ic_launcher_round" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
     </FrameLayout>
 
 </FrameLayout>
