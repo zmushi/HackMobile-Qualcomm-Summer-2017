@@ -215,14 +215,6 @@ public class CallingActivity extends AppCompatActivity {
                 // Change View to look like in call
                 setContentView(R.layout.activity_incall);
 
-                // Wait 5 seconds
-                try {
-                    Thread.sleep(5000);
-                } catch (InterruptedException ex) {
-                    Thread.currentThread().interrupt();
-                }
-
-
                 // Put screen to sleep
                 WindowManager.LayoutParams layoutParam = getWindow().getAttributes();
                 // oldBrightness = android.provider.Settings.System.getInt(getContentResolver(), android.provider.Settings.System.SCREEN_BRIGHTNESS)/255f;
@@ -230,7 +222,6 @@ public class CallingActivity extends AppCompatActivity {
                 layoutParam.flags |= WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
                 getWindow().setAttributes(layoutParam);
 
-                /*
                 // Wait 5 seconds
                 try
                 {
@@ -242,22 +233,24 @@ public class CallingActivity extends AppCompatActivity {
                 }
 
 
-                // Set eveything to invisble
+                /*
+                // Set everything to invisible
                 mEndCallView.setVisibility(View.INVISIBLE);
                 mEndCallCircleView.setVisibility(View.INVISIBLE);
                 mEndHandleCallView.setVisibility(View.INVISIBLE);
                 mEndContactView.setVisibility(View.INVISIBLE);
                 mEndNumberView.setVisibility(View.INVISIBLE);
                 mEndPictureView.setVisibility(View.INVISIBLE);
-                */
+*/
 
-                Log.v("MainACt", "mEncCallView = " + mEndCallView.toString());
+                /*Log.v("MainACt", "mEncCallView = " + mEndCallView.toString());
                 mEndCallView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         activity.finish();
                     }
                 });
+                */
 
             }
 
