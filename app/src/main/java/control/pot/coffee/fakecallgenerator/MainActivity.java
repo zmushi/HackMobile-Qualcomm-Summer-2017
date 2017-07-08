@@ -15,6 +15,14 @@ public class MainActivity extends AppCompatActivity implements
     private FrameLayout fragmentContainer;
     private EditText searchEditText;
 
+    private static final String STATE_EMPTY = "empty";
+    private static final String STATE_LIST = "list";
+    private static final String STATE_DISPLAY = "display";
+    private String fragState = STATE_EMPTY;
+    //0 = No frag
+    //1 = list frag
+    //2 = display frag
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +44,21 @@ public class MainActivity extends AppCompatActivity implements
 
     //Called when search button is pressed
     public void searchContacts(View view) {
-        //TODO code method stub
         String searchString = searchEditText.getText().toString().trim();
-        ContactsListFragment fragment = ContactsListFragment.newInstance(searchString);
-
+        ContactsListFragment fragmentList = ContactsListFragment.newInstance(searchString);
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        //fragmentTransaction.add(R.id.result_layout, fragment);
+        switch (fragState) {
+            case STATE_LIST:
+            case STATE_DISPLAY:
+                //fragmentTransaction.replace(R.id.result_layout, fragmentList);
+                break;
+            case STATE_EMPTY:
+            default:
+                //fragmentTransaction.add(R.id.result_layout, fragmentList);
+                break;
+        }
         fragmentTransaction.commit();
-
     }
 
     //Called when call button is pressed
