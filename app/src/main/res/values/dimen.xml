@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="text_size">18dp</dimen>
-    <dimen name="fragment_container_height">224dp</dimen>
-    <dimen name="fragment_container_width">324dp</dimen>
+    <dimen name="fragment_container_height">228dp</dimen>
+    <dimen name="fragment_container_width">318dp</dimen>
 
     <dimen name="fragment_contact_list_item_height">40dp</dimen>
     <dimen name="fragment_contact_list_item_name_width">100dp</dimen>
