@@ -180,8 +180,6 @@ public class CallingActivity extends AppCompatActivity {
 
         mEndCallCircleView=findViewById(R.id.red_circle2);//Endcallbuttonhandler
         mEndHandleCallView=findViewById(R.id.reject2);//Endcallbuttonhandler
-        mEndContactView=(TextView)findViewById(R.id.contact2);//Endcallbuttonhandler
-        mEndNumberView=(TextView)findViewById(R.id.phone_number2);//Endcallbuttonhandler
         mEndPictureView=findViewById(R.id.contact_picture);//Endcallbuttonhandler
 
         mAnswerCallView =(ImageButton) findViewById(R.id.acceptButton);
@@ -244,8 +242,6 @@ public class CallingActivity extends AppCompatActivity {
 
                 // Change View to look like in call
 
-                //setContentView(R.layout.activity_incall);
-
 
                 mAnswerCallView.setVisibility(View.INVISIBLE);
                 mAnswerCallCircleView.setVisibility(View.INVISIBLE);
@@ -265,17 +261,7 @@ public class CallingActivity extends AppCompatActivity {
                 layoutParam.screenBrightness = 0;
                 layoutParam.flags |= WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
                 getWindow().setAttributes(layoutParam);
-                
 
-                // Wait 5 seconds
-                try
-                {
-                    Thread.sleep(5000);
-                }
-                catch(InterruptedException ex)
-                {
-                    Thread.currentThread().interrupt();
-                }
 
 
                 /*
