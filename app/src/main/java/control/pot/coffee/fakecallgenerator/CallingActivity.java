@@ -261,8 +261,7 @@ public class CallingActivity extends AppCompatActivity {
                 layoutParam.screenBrightness = 0;
                 layoutParam.flags |= WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
                 getWindow().setAttributes(layoutParam);
-
-
+                
 
                 /*
                 // Set everything to invisible
