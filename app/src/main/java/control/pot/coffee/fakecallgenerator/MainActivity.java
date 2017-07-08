@@ -131,9 +131,16 @@ public class MainActivity extends AppCompatActivity implements
 
     //Called when call button is pressed
     public void placeCall(View view) {
-        if (delay == 0 && repeat == 1) {
+        if (delay == 0) {
             //No delay or repeats, start now
             Intent intent = new Intent(this, CallingActivity.class);
+            Bundle b = new Bundle();
+            b.putString(Constants.EXTRA_KEY_NAME, name);
+            b.putString(Constants.EXTRA_KEY_NUMBER, number);
+            b.putString(Constants.EXTRA_KEY_PHOTO, photoStr);
+            b.putInt(Constants.EXTRA_KEY_INTERVAL, interval);
+            b.putInt(Constants.EXTRA_KEY_REPEATS, repeat - 1);
+            intent.putExtras(b);
             startActivity(intent);
         } else {
             CallScheduler CS = new CallScheduler(this, delay, repeat, interval,

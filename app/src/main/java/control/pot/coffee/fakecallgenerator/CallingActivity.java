@@ -22,6 +22,7 @@ import android.widget.ImageView;
  */
 public class CallingActivity extends AppCompatActivity {
     private static final String TAG = "CallingActivity";
+    Context ctx;
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -44,6 +45,8 @@ public class CallingActivity extends AppCompatActivity {
     private View mAnswerView;
     private View mRejectView;
     private AudioManager audioManager;
+
+    private Bundle extras;
 
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
@@ -111,6 +114,9 @@ public class CallingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calling);
+        ctx = this;
+
+        extras = getIntent().getExtras();
 
         Log.i(TAG, "Calling Activity started");
 
@@ -152,6 +158,18 @@ public class CallingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 player.stop();
+
+                //Schedule next activity
+                int repeats = extras.getInt(Constants.EXTRA_KEY_REPEATS);
+                if (repeats > 0) {
+                    int interval= extras.getInt(Constants.EXTRA_KEY_INTERVAL);
+                    String name = extras.getString(Constants.EXTRA_KEY_NAME);
+                    String number = extras.getString(Constants.EXTRA_KEY_NUMBER);
+                    String photoUri = extras.getString(Constants.EXTRA_KEY_PHOTO);
+                    CallScheduler CS = new CallScheduler(ctx, interval, repeats, interval,
+                            name, number, photoUri);
+                    CS.schedule();
+                }
 
                 //Goes Back to Home
                 Intent startMain = new Intent(Intent.ACTION_MAIN);
