@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/fragment_container_width"
@@ -8,29 +8,56 @@
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/fragment_contact_display_name_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment"
+        android:layout_width="@dimen/fragment_contact_display_text_width"
+        android:layout_height="@dimen/fragment_contact_display_text_height"
+        android:layout_alignStart="@+id/fragment_contact_display_number_textView"
         android:layout_centerVertical="true"
-        android:layout_alignStart="@+id/fragment_contact_display_number_textView" />
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.664" />
 
     <TextView
         android:id="@+id/fragment_contact_display_number_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment"
+        android:layout_width="@dimen/fragment_contact_display_text_width"
+        android:layout_height="@dimen/fragment_contact_display_text_height"
         android:layout_alignTop="@+id/fragment_contact_display_photo_imageView"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_toEndOf="@+id/fragment_contact_display_photo_imageView"
-        android:layout_marginStart="26dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.935"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.291" />
 
     <ImageView
         android:id="@+id/fragment_contact_display_photo_imageView"
         android:layout_width="@dimen/fragment_contact_display_photo_width"
         android:layout_height="@dimen/fragment_contact_display_photo_height"
         app:srcCompat="?android:attr/colorBackground"
+        android:layout_marginStart="14dp"
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="19dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.045" />
 
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>
