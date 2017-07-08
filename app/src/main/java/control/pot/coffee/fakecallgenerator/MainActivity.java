@@ -1,9 +1,13 @@
 package control.pot.coffee.fakecallgenerator;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class MainActivity extends AppCompatActivity implements ContactsListFragment.ContactsListFragmentInterface {
 
@@ -22,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements ContactsListFragm
     }
 
     public void placeCall(View view) {
-
+        Intent intent = new Intent(this, CallingActivity.class);
+        startActivity(intent);
     }
 }
