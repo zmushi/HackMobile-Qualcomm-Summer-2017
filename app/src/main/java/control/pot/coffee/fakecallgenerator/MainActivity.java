@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity implements
 
     private EditText searchEditText;
     private String searchString;
+    private Contact contact;
 
 
     //Variable and constants to track fragment states
@@ -40,6 +41,9 @@ public class MainActivity extends AppCompatActivity implements
         create contact
         load contact
          */
+
+        contact = new Contact(lookupKey);
+
     }
 
     //Called when search button is pressed
@@ -62,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements
         fragmentTransaction.commit();
         fragState = STATE_LIST;
     }
+
     //Called when call button is pressed
     public void placeCall(View view) {
         Intent intent = new Intent(this, CallingActivity.class);

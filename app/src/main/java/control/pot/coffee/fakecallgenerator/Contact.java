@@ -25,7 +25,9 @@ public class Contact {
     }
 
     //TODO implement load() method stub
-    public void load(String lookupKey)  {}
+    public void load(String lookupKey)  {
+
+    }
 
     public String getName() {
         return name;

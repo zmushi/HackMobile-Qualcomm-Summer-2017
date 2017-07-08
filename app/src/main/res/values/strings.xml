@@ -16,8 +16,11 @@
     <string name="setting_name_dafault">Name</string>
     <string name="hint_second">5</string>
     <string name="call_button">place the call</string>
-    <string name="hint_search">enter name here</string>
-    <string name="search_button">search</string>
+    <string name="hint_search">Search Contacts</string>
+    <string name="search_button">Search</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

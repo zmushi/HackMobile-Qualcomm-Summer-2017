@@ -70,8 +70,6 @@ public class ContactsListFragment extends Fragment implements
                     Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
                             ContactsContract.Data.DISPLAY_NAME_PRIMARY :
                             ContactsContract.Data.DISPLAY_NAME,
-                    // The contact's _ID, to construct a content URI
-                    ContactsContract.Data.CONTACT_ID,
                     // The contact's LOOKUP_KEY, to construct a content URI
                     ContactsContract.Data.LOOKUP_KEY
             };
