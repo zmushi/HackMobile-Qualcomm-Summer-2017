@@ -15,13 +15,13 @@ public class MainActivity extends AppCompatActivity implements
     private FrameLayout fragmentContainer;
     private EditText searchEditText;
 
-    private static final String STATE_EMPTY = "empty";
-    private static final String STATE_LIST = "list";
-    private static final String STATE_DISPLAY = "display";
+
+    //Variable and constants to track fragment states
     private String fragState = STATE_EMPTY;
-    //0 = No frag
-    //1 = list frag
-    //2 = display frag
+    private static final String STATE_EMPTY     = "empty";      //No fragment displayed
+    private static final String STATE_LIST      = "list";       //ContactsListFragment displayed
+    private static final String STATE_DISPLAY   = "display";    //ContactDisplayFragment displayed
+
 
 
     @Override
@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements
         ContactsListFragment fragmentList = ContactsListFragment.newInstance(searchString);
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
         switch (fragState) {
             case STATE_LIST:
             case STATE_DISPLAY:
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements
                 break;
         }
         fragmentTransaction.commit();
+        fragState = STATE_LIST;
     }
 
     //Called when call button is pressed
