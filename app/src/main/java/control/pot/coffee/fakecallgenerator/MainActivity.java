@@ -1,8 +1,8 @@
 package control.pot.coffee.fakecallgenerator;
 
+import android.content.Intent;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity implements
     private static final String STATE_EMPTY     = "empty";      //No fragment displayed
     private static final String STATE_LIST      = "list";       //ContactsListFragment displayed
     private static final String STATE_DISPLAY   = "display";    //ContactDisplayFragment displayed
-
 
 
     @Override
@@ -62,8 +61,9 @@ public class MainActivity extends AppCompatActivity implements
         fragmentTransaction.commit();
         fragState = STATE_LIST;
     }
-
     //Called when call button is pressed
     public void placeCall(View view) {
+        Intent intent = new Intent(this, CallingActivity.class);
+        startActivity(intent);
     }
 }

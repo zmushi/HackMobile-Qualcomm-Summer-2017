@@ -8,4 +8,16 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="contact">Mom</string>
     <string name="phone_nmber">1 858-543-5343</string>
+
+    <!-- Main UI String-->
+    <string name="setting_contact">Contact</string>
+    <string name="setting_delay">Delay</string>
+    <string name="setting_s">s</string>
+    <string name="setting_name_dafault">Name</string>
+    <string name="hint_second">5</string>
+    <string name="call_button">place the call</string>
+    <string name="hint_search">enter name here</string>
+    <string name="search_button">search</string>
+
+
 </resources>
