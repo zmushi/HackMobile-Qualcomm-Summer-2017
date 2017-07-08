@@ -67,17 +67,15 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view,
-                               int pos, long id) {
-
+    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
         switch(parent.getId()) {
             case R.id.repeat_spinner: repeat = Integer.parseInt(parent.getItemAtPosition(pos).toString());
                 break;
             case R.id.delay_spinner: delay = Integer.parseInt(parent.getItemAtPosition(pos).toString());
                 break;
             case R.id.interval_spinner: interval = Integer.parseInt(parent.getItemAtPosition(pos).toString());
+                break;
         }
-        Log.v(TAG, Integer.toString(delay));
     }
 
     @Override
