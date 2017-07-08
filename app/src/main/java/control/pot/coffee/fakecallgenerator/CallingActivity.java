@@ -22,7 +22,10 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+
+import org.w3c.dom.Text;
 
 import java.text.NumberFormat;
 import java.util.Date;
@@ -60,14 +63,18 @@ public class CallingActivity extends AppCompatActivity {
     private ImageButton mEndCallView; // For end call button after call is answered
     private View mEndCallCircleView;//Endcallbuttonhandler
     private View mEndHandleCallView;//Endcallbuttonhandler
+
     private ImageButton mAnswerCallView; // For end call button after call is answered
     private View mAnswerCallCircleView;//Endcallbuttonhandler
     private View mAnswerHandleCallView;//Endcallbuttonhandler
+
     private ImageButton mRejectCallView; // For end call button after call is answered
     private View mRejectCallCircleView;//Endcallbuttonhandler
     private View mRejectHandleCallView;//Endcallbuttonhandler
-    private View mEndContactView;//Endcallbuttonhandler
-    private View mEndNumberView;//Endcallbuttonhandler
+
+    private TextView mEndContactView;//Endcallbuttonhandler
+    private TextView mEndNumberView;//Endcallbuttonhandler
+
     private View mEndPictureView;//Endcallbuttonhandler
     private AudioManager audioManager;
     private Uri photo;
@@ -173,8 +180,8 @@ public class CallingActivity extends AppCompatActivity {
 
         mEndCallCircleView=findViewById(R.id.red_circle2);//Endcallbuttonhandler
         mEndHandleCallView=findViewById(R.id.reject2);//Endcallbuttonhandler
-        mEndContactView=findViewById(R.id.contact2);//Endcallbuttonhandler
-        mEndNumberView=findViewById(R.id.phone_number2);//Endcallbuttonhandler
+        mEndContactView=(TextView)findViewById(R.id.contact2);//Endcallbuttonhandler
+        mEndNumberView=(TextView)findViewById(R.id.phone_number2);//Endcallbuttonhandler
         mEndPictureView=findViewById(R.id.contact_picture);//Endcallbuttonhandler
 
         mAnswerCallView =(ImageButton) findViewById(R.id.acceptButton);
@@ -187,16 +194,22 @@ public class CallingActivity extends AppCompatActivity {
 
 
         // Get name, number, phtoUri information
-        try {
-            name = extras.getString(Constants.EXTRA_KEY_NAME);
-            number = extras.getString(Constants.EXTRA_KEY_NUMBER);
-            photoUri = extras.getString(Constants.EXTRA_KEY_PHOTO);
-        }
-        catch (NullPointerException e){
-            name = "Mom";
-            number = "1 858-453-5343";
-            photoUri = null;
-        }
+
+            String Ename = extras.getString(Constants.EXTRA_KEY_NAME, null);
+            String Enumber = extras.getString(Constants.EXTRA_KEY_NUMBER, null);
+            photoUri = extras.getString(Constants.EXTRA_KEY_PHOTO, null);
+
+        Log.v("MainActivity", Ename + " | " + Enumber + " | " + photoUri);
+
+        name = (Ename != null ? Ename : "Mom");
+        number = (Enumber != null ? Enumber : "1 (858) 453 5343");
+
+
+        TextView nameView = (TextView) findViewById(R.id.activity_calling_name);
+        TextView numberView = (TextView) findViewById(R.id.activity_calling_number);
+
+        nameView.setText(name);
+        numberView.setText(number);
 
         // Set the contact image
         if(photoUri == null){
@@ -207,6 +220,8 @@ public class CallingActivity extends AppCompatActivity {
             final ImageView imageView = (ImageView) findViewById(R.id.contact_picture);
             imageView.setImageURI(photo);
         }
+
+        Log.v("MainActivity", Ename + " | " + Enumber + " | " + photoUri);
 
         // Getting the default ringTone to play
         final MediaPlayer player = MediaPlayer.create(this, Settings.System.DEFAULT_RINGTONE_URI);
