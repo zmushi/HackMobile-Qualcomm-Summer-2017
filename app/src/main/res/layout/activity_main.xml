@@ -201,8 +201,8 @@
 
         <FrameLayout
             android:id="@+id/result_layout"
-            android:layout_width="287dp"
-            android:layout_height="170dp"
+            android:layout_width="@dimen/fragment_container_width"
+            android:layout_height="@dimen/fragment_container_height"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"

@@ -1,13 +1,36 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="@dimen/fragment_container_width"
+    android:layout_height="@dimen/fragment_container_height"
     tools:context="control.pot.coffee.fakecallgenerator.ContactDisplayFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/fragment_contact_display_name_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/fragment_contact_display_number_textView" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/fragment_contact_display_number_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_blank_fragment"
+        android:layout_alignTop="@+id/fragment_contact_display_photo_imageView"
+        android:layout_toEndOf="@+id/fragment_contact_display_photo_imageView"
+        android:layout_marginStart="26dp" />
+
+    <ImageView
+        android:id="@+id/fragment_contact_display_photo_imageView"
+        android:layout_width="@dimen/fragment_contact_display_photo_width"
+        android:layout_height="@dimen/fragment_contact_display_photo_height"
+        app:srcCompat="?android:attr/colorBackground"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="19dp" />
+
+
+</RelativeLayout>

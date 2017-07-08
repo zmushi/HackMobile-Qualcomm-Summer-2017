@@ -13,9 +13,9 @@
 
         <activity
             android:name=".MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -23,7 +23,7 @@
             android:name=".CallingActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_calling"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
     </application>
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
