@@ -243,10 +243,6 @@ public class CallingActivity extends AppCompatActivity {
                 mRejectView.setVisibility(View.INVISIBLE);
 
                 // Change View to look like in call
-
-                //setContentView(R.layout.activity_incall);
-
-
                 mAnswerCallView.setVisibility(View.INVISIBLE);
                 mAnswerCallCircleView.setVisibility(View.INVISIBLE);
                 mAnswerHandleCallView.setVisibility(View.INVISIBLE);
@@ -265,31 +261,14 @@ public class CallingActivity extends AppCompatActivity {
                 layoutParam.screenBrightness = 0;
                 layoutParam.flags |= WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
                 getWindow().setAttributes(layoutParam);
-                
 
-
-                /*
-                // Set everything to invisible
-                mEndCallView.setVisibility(View.INVISIBLE);
-                mEndCallCircleView.setVisibility(View.INVISIBLE);
-                mEndHandleCallView.setVisibility(View.INVISIBLE);
-                mEndContactView.setVisibility(View.INVISIBLE);
-                mEndNumberView.setVisibility(View.INVISIBLE);
-                mEndPictureView.setVisibility(View.INVISIBLE);
-                */
-
-                //Log.v("MainACt", "mEncCallView = " + mEndCallView.toString());
                 mEndCallView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         activity.finish();
                     }
                 });
-
-
-
             }
-
         });
 
         // WHEN THE REJECT BUTTON IS PRESSED
