@@ -2,6 +2,7 @@ package control.pot.coffee.fakecallgenerator;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.provider.Settings;
@@ -39,7 +40,7 @@ public class CallingActivity extends AppCompatActivity {
     private View mContentView;
     private View mAnswerView;
     private View mRejectView;
-    //private AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE); // To later play the ringtone
+    private AudioManager audioManager;
 
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
@@ -93,15 +94,15 @@ public class CallingActivity extends AppCompatActivity {
     };
 
     //mutes ALL STREAMS
-    //public void muteAll(){
-        //audioManager.setStreamVolume(audioManager.STREAM_ALARM ,audioManager.ADJUST_TOGGLE_MUTE, 1);
-        //audioManager.setStreamVolume(audioManager.STREAM_DTMF ,audioManager.ADJUST_TOGGLE_MUTE, 2);
-        //audioManager.setStreamVolume(audioManager.STREAM_MUSIC ,audioManager.ADJUST_TOGGLE_MUTE, 3);
-        //audioManager.setStreamVolume(audioManager.STREAM_NOTIFICATION ,audioManager.ADJUST_TOGGLE_MUTE, 4);
-        //audioManager.setStreamVolume(audioManager.STREAM_RING ,audioManager.ADJUST_TOGGLE_MUTE, 5);
-        //audioManager.setStreamVolume(audioManager.STREAM_SYSTEM ,audioManager.ADJUST_TOGGLE_MUTE, 6);
-        //audioManager.setStreamVolume(audioManager.STREAM_VOICE_CALL ,audioManager.ADJUST_TOGGLE_MUTE, 7);
-    //}
+    public void muteAll(){
+        audioManager.setStreamVolume(audioManager.STREAM_ALARM ,audioManager.ADJUST_TOGGLE_MUTE, 1);
+        audioManager.setStreamVolume(audioManager.STREAM_DTMF ,audioManager.ADJUST_TOGGLE_MUTE, 2);
+        audioManager.setStreamVolume(audioManager.STREAM_MUSIC ,audioManager.ADJUST_TOGGLE_MUTE, 3);
+        audioManager.setStreamVolume(audioManager.STREAM_NOTIFICATION ,audioManager.ADJUST_TOGGLE_MUTE, 4);
+        audioManager.setStreamVolume(audioManager.STREAM_RING ,audioManager.ADJUST_TOGGLE_MUTE, 5);
+        audioManager.setStreamVolume(audioManager.STREAM_SYSTEM ,audioManager.ADJUST_TOGGLE_MUTE, 6);
+        audioManager.setStreamVolume(audioManager.STREAM_VOICE_CALL ,audioManager.ADJUST_TOGGLE_MUTE, 7);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +110,9 @@ public class CallingActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_calling);
 
-        //muteAll();
+        audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE); // To later play the ringtone
+
+        muteAll();
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
@@ -139,7 +142,11 @@ public class CallingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 player.stop();
-                //NEED TO CALL ACTIVITY TO END THE APP
+                //Goes Back to Home
+                Intent startMain = new Intent(Intent.ACTION_MAIN);
+                startMain.addCategory(Intent.CATEGORY_HOME);
+                startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(startMain);
             }
         });
 
