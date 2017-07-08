@@ -221,17 +221,19 @@ public class CallingActivity extends AppCompatActivity {
                 player.stop();
                 v.cancel();
 
-                // TODO mute other sounds
+                mAnswerView.setVisibility(View.INVISIBLE);
+                mRejectView.setVisibility(View.INVISIBLE);
 
                 // Change View to look like in call
-                setContentView(R.layout.activity_incall);
-
+                //setContentView(R.layout.activity_incall);
+/*
                 // Put screen to sleep
                 WindowManager.LayoutParams layoutParam = getWindow().getAttributes();
                 // oldBrightness = android.provider.Settings.System.getInt(getContentResolver(), android.provider.Settings.System.SCREEN_BRIGHTNESS)/255f;
                 layoutParam.screenBrightness = 0;
                 layoutParam.flags |= WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
                 getWindow().setAttributes(layoutParam);
+                */
 
                 // Wait 5 seconds
                 try
@@ -273,6 +275,8 @@ public class CallingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 player.stop();
                 v.cancel();
+
+
 
                 //Schedule next activity
                 int repeats = extras.getInt(Constants.EXTRA_KEY_REPEATS);
