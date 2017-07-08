@@ -20,7 +20,7 @@
             android:name=".CallingActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_calling"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
     </application>
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
