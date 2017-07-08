@@ -72,7 +72,7 @@ public class ContactsListFragment extends Fragment implements
                     ContactsContract.Data.LOOKUP_KEY,
                     ContactsContract.Contacts.DISPLAY_NAME_PRIMARY,
                     ContactsContract.CommonDataKinds.Phone.NUMBER,
-                    ContactsContract.CommonDataKinds.Photo.PHOTO_THUMBNAIL_URI
+                    ContactsContract.CommonDataKinds.Photo.PHOTO_URI
             };
 
     //Selection criteria for search
