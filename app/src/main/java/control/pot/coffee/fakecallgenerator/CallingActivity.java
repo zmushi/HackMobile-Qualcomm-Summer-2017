@@ -23,6 +23,8 @@ import android.widget.ImageView;
 
 
 import java.text.NumberFormat;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -53,6 +55,11 @@ public class CallingActivity extends AppCompatActivity {
     private View mAnswerView; // For answer button before call is answered or rejected
     private View mRejectView; // For reject button before call is answered or rejected
     private View mEndCallView; // For end call button after call is answered
+    private View mEndCallCircleView;//Endcallbuttonhandler
+    private View mEndHandleCallView;//Endcallbuttonhandler
+    private View mEndContactView;//Endcallbuttonhandler
+    private View mEndNumberView;//Endcallbuttonhandler
+    private View mEndPictureView;//Endcallbuttonhandler
     private AudioManager audioManager;
     private Uri photo;
     private int photoId;
@@ -60,6 +67,7 @@ public class CallingActivity extends AppCompatActivity {
     private String number;
     private String photoUri;
     private Vibrator v;
+    private WindowManager.LayoutParams layoutParam;
 
     private Bundle extras;
 
@@ -125,6 +133,7 @@ public class CallingActivity extends AppCompatActivity {
         audioManager.setStreamVolume(audioManager.STREAM_VOICE_CALL ,audioManager.ADJUST_TOGGLE_MUTE, 7);
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -151,6 +160,12 @@ public class CallingActivity extends AppCompatActivity {
         mAnswerView = findViewById(R.id.acceptButton); // Answer call button handler
         mRejectView = findViewById(R.id.rejectButton); // Reject call button handler
         mEndCallView = findViewById(R.id.rejectButton2); // End call button handler
+        mEndCallCircleView=findViewById(R.id.red_circle2);//Endcallbuttonhandler
+        mEndHandleCallView=findViewById(R.id.reject2);//Endcallbuttonhandler
+        mEndContactView=findViewById(R.id.contact2);//Endcallbuttonhandler
+        mEndNumberView=findViewById(R.id.phone_number2);//Endcallbuttonhandler
+        mEndPictureView=findViewById(R.id.contact_picture);//Endcallbuttonhandler
+
 
         // Get name, number, phtoUri information
         try {
@@ -179,9 +194,7 @@ public class CallingActivity extends AppCompatActivity {
         player.start();
 
         //Phone vibrates
-        //long[] timings = [1000, 1000, 10000, 1000, 1000]
         v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        //VibrationEffect vibe = v.createWaveform(timings, 2);
         v.vibrate(10000000);
 
         //FOR WHEN THE ACCEPT BUTTON IS PRESSED
@@ -195,38 +208,48 @@ public class CallingActivity extends AppCompatActivity {
                 // TODO mute other sounds
 
                 // Change View to look like in call
-                setContentView(R.layout.activity_calling);
+                setContentView(R.layout.activity_incall);
 
-                // Put phone to black until screen is tapped
-                final WindowManager.LayoutParams params = getWindow().getAttributes();
-                params.flags |= WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
-                params.screenBrightness = 0;
-                getWindow().setAttributes(params);
-
-                mContentView.setOnClickListener(new View.OnClickListener(){
-                    @Override
-                    public void onClick(View view) {
-                        // Turn to full Brightness
-                        params.screenBrightness = 1;
-                        getWindow().setAttributes(params);
-                    }
+                // Wait 5 seconds
+                try
+                {
+                    Thread.sleep(2000);
                 }
-
-                // When end call button is clicked, end phone call
-                        // TODO allow this only to be clicked if screenBrightness = 1
-                mEndCallView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        //Goes Back to Home
-                        Intent startMain = new Intent(Intent.ACTION_MAIN);
-                        startMain.addCategory(Intent.CATEGORY_HOME);
-                        //startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(startMain);
-                    }
+                catch(InterruptedException ex)
+                {
+                    Thread.currentThread().interrupt();
                 }
 
 
+                // Put screen to sleep
+                WindowManager.LayoutParams layoutParam = getWindow().getAttributes();
+                // oldBrightness = android.provider.Settings.System.getInt(getContentResolver(), android.provider.Settings.System.SCREEN_BRIGHTNESS)/255f;
+                layoutParam.screenBrightness = 0;
+                layoutParam.flags |= WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
+                getWindow().setAttributes(layoutParam);
+
+                /*
+                // Wait 5 seconds
+                try
+                {
+                    Thread.sleep(5000);
+                }
+                catch(InterruptedException ex)
+                {
+                    Thread.currentThread().interrupt();
+                }
+
+
+                // Set eveything to invisble
+                mEndCallView.setVisibility(View.INVISIBLE);
+                mEndCallCircleView.setVisibility(View.INVISIBLE);
+                mEndHandleCallView.setVisibility(View.INVISIBLE);
+                mEndContactView.setVisibility(View.INVISIBLE);
+                mEndNumberView.setVisibility(View.INVISIBLE);
+                mEndPictureView.setVisibility(View.INVISIBLE);
+                */
             }
+
         });
 
         // WHEN THE REJECT BUTTON IS PRESSED
