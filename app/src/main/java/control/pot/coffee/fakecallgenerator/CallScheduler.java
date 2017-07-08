@@ -7,12 +7,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.provider.ContactsContract;
+import android.util.Log;
+
+import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
 /**
  * Created by loker on 7/8/2017.
  */
 
 public class CallScheduler {
+    private static final String TAG = "CallScheduler";
+
     private int delay;
     private int repeats;
     private int interval;
@@ -37,6 +42,8 @@ public class CallScheduler {
         this.number = number;
         this.photoUri = photoUri;
         am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+        Log.v(TAG,delay + " | " + repeats + " | " + interval + " | " + name + " | " + number + " | " + photoUri);
     }
 
     //This func should use array instead
@@ -49,9 +56,9 @@ public class CallScheduler {
         secondIntent.setAction(Constants.ACTION_SECOND_CALL);
         thirdIntent.setAction(Constants.ACTION_THIRD_CALL);
 
-        firstIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        secondIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        thirdIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        firstIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        secondIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        thirdIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
         Bundle b = new Bundle();
         b.putString(Constants.EXTRA_KEY_NAME, name);
@@ -74,19 +81,14 @@ public class CallScheduler {
         switch(repeats) {
             case 3:
                 am.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, currentTime + delay * 1000 + 2 * interval * 1000, thirdPendingIntent);
+                Log.v(TAG, "Scheduled First");
             case 2:
                 am.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, currentTime + delay * 1000 + 1 * interval * 1000, secondPendingIntent);
+                Log.v(TAG, "Scheduled Second");
             case 1:
-            default:
                 am.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, currentTime + delay * 1000 + 0 * interval * 1000, firstPendingIntent);
-        }
-
-        switch(repeats) {
+                Log.v(TAG, "Scheduled Third");
             default:
-            case 1:
-                am.cancel(secondPendingIntent);
-            case 2:
-                am.cancel(thirdPendingIntent);
         }
     }
 }

@@ -15,7 +15,7 @@ public class Constants {
     public static final String EXTRA_KEY_PHOTO     = PREFIX + "extra_photo";
     public static final String EXTRA_KEY_TOTAL_REPEATS     = PREFIX + "extra_repeats";
 
-    public static final String ACTION_FIRST_CALL = PREFIX + "action_first_call";
+    public static final String ACTION_FIRST_CALL  = PREFIX + "action_first_call";
     public static final String ACTION_SECOND_CALL = PREFIX + "action_second_call";
-    public static final String ACTION_THIRD_CALL = PREFIX + "action_third_call";
+    public static final String ACTION_THIRD_CALL  = PREFIX + "action_third_call";
 }

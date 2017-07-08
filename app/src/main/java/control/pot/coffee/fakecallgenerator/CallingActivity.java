@@ -10,8 +10,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 /**
@@ -19,6 +21,7 @@ import android.widget.ImageView;
  * status bar and navigation/system bar) with user interaction.
  */
 public class CallingActivity extends AppCompatActivity {
+    private static final String TAG = "CallingActivity";
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -107,8 +110,15 @@ public class CallingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_calling);
+
+        Log.i(TAG, "Calling Activity started");
+
+        //Allows activity to be displayed on lock screen
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON|
+                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD|
+                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED|
+                WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
         audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE); // To later play the ringtone
 

@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light">
+
         <activity
             android:name=".MainActivity">
             <intent-filter>
@@ -16,8 +17,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".CallingActivity"
+            android:showOnLockScreen="true"
+            android:screenOrientation="sensorPortrait"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_calling"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
