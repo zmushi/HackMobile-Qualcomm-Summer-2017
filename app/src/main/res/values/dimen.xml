@@ -3,6 +3,8 @@
     <dimen name="fragment_container_height">170dp</dimen>
     <dimen name="fragment_container_width">290dp</dimen>
 
+    <dimen name="fragment_contact_list_item_height">30dp</dimen>
+
     <dimen name="fragment_contact_display_photo_height">100dp</dimen>
     <dimen name="fragment_contact_display_photo_width">100dp</dimen>
 
