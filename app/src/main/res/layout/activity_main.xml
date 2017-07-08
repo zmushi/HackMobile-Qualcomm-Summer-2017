@@ -42,7 +42,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.84000003">
+        app:layout_constraintVertical_bias="0.84">
 
         <TextView
             android:id="@+id/delay_unit"
@@ -199,7 +199,7 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/search_layout"
         android:layout_width="@dimen/activity_main_constraint_layout_width"
-        android:layout_height="315dp"
+        android:layout_height="@dimen/activity_main_constraint_layout_height"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
@@ -208,7 +208,7 @@
         android:layout_marginTop="8dp"
         android:background="@android:drawable/alert_light_frame"
         app:layout_constraintBottom_toTopOf="@+id/setting_layout"
-        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -266,11 +266,11 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            app:layout_constraintHorizontal_bias="0.478">
+            app:layout_constraintVertical_bias="0.893">
 
         </FrameLayout>
     </android.support.constraint.ConstraintLayout>
