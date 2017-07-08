@@ -19,6 +19,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,6 +38,7 @@ import java.util.concurrent.TimeUnit;
 public class CallingActivity extends AppCompatActivity {
     private static final String TAG = "CallingActivity";
     Context ctx;
+    AppCompatActivity activity;
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -57,7 +60,7 @@ public class CallingActivity extends AppCompatActivity {
     private View mContentView;
     private View mAnswerView; // For answer button before call is answered or rejected
     private View mRejectView; // For reject button before call is answered or rejected
-    private View mEndCallView; // For end call button after call is answered
+    private ImageButton mEndCallView; // For end call button after call is answered
     private View mEndCallCircleView;//Endcallbuttonhandler
     private View mEndHandleCallView;//Endcallbuttonhandler
     private TextView mEndContactView;//Endcallbuttonhandler
@@ -142,6 +145,7 @@ public class CallingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calling);
         ctx = this;
+        activity = this;
 
         extras = getIntent().getExtras();
 
@@ -162,7 +166,8 @@ public class CallingActivity extends AppCompatActivity {
         mContentView = findViewById(R.id.fullscreen_content);
         mAnswerView = findViewById(R.id.acceptButton); // Answer call button handler
         mRejectView = findViewById(R.id.rejectButton); // Reject call button handler
-        mEndCallView = findViewById(R.id.rejectButton2); // End call button handler
+        mEndCallView = (ImageButton)findViewById(R.id.endCallButton); // End call button handler
+
         mEndCallCircleView=findViewById(R.id.red_circle2);//Endcallbuttonhandler
         mEndHandleCallView=findViewById(R.id.reject2);//Endcallbuttonhandler
         mEndContactView=(TextView)findViewById(R.id.contact2);//Endcallbuttonhandler
@@ -221,17 +226,6 @@ public class CallingActivity extends AppCompatActivity {
                 // Change View to look like in call
                 setContentView(R.layout.activity_incall);
 
-                // Wait 5 seconds
-                try
-                {
-                    Thread.sleep(2000);
-                }
-                catch(InterruptedException ex)
-                {
-                    Thread.currentThread().interrupt();
-                }
-
-
                 // Put screen to sleep
                 WindowManager.LayoutParams layoutParam = getWindow().getAttributes();
                 // oldBrightness = android.provider.Settings.System.getInt(getContentResolver(), android.provider.Settings.System.SCREEN_BRIGHTNESS)/255f;
@@ -239,7 +233,6 @@ public class CallingActivity extends AppCompatActivity {
                 layoutParam.flags |= WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
                 getWindow().setAttributes(layoutParam);
 
-                /*
                 // Wait 5 seconds
                 try
                 {
@@ -251,14 +244,25 @@ public class CallingActivity extends AppCompatActivity {
                 }
 
 
-                // Set eveything to invisble
+                /*
+                // Set everything to invisible
                 mEndCallView.setVisibility(View.INVISIBLE);
                 mEndCallCircleView.setVisibility(View.INVISIBLE);
                 mEndHandleCallView.setVisibility(View.INVISIBLE);
                 mEndContactView.setVisibility(View.INVISIBLE);
                 mEndNumberView.setVisibility(View.INVISIBLE);
                 mEndPictureView.setVisibility(View.INVISIBLE);
+*/
+
+                /*Log.v("MainACt", "mEncCallView = " + mEndCallView.toString());
+                mEndCallView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        activity.finish();
+                    }
+                });
                 */
+
             }
 
         });
