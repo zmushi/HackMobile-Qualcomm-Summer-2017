@@ -2,6 +2,7 @@ package control.pot.coffee.fakecallgenerator;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.provider.Settings;
@@ -141,7 +142,11 @@ public class CallingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 player.stop();
-                //NEED TO CALL ACTIVITY TO END THE APP
+                //Goes Back to Home
+                Intent startMain = new Intent(Intent.ACTION_MAIN);
+                startMain.addCategory(Intent.CATEGORY_HOME);
+                startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(startMain);
             }
         });
 
