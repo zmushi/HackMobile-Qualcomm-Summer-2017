@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 /**
@@ -15,6 +16,7 @@ import android.widget.RemoteViews;
 
 public class WidgetProvider extends AppWidgetProvider {
 
+    public static final String WIDGET_ACTION = "blahblahblah.com.widgetaction";
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         final int count = appWidgetIds.length;
@@ -22,10 +24,10 @@ public class WidgetProvider extends AppWidgetProvider {
             int appWidgetId = appWidgetIds[i];
 
             // Create an Intent to launch ExampleActivity
-            Intent intent = new Intent(context, WidgetProvider.class);
-            intent.setAction(Constants.ACTION_WIDGET_CLICK);
-            intent.putExtra(Constants.PREFS_WIDGET_ID,Integer.toString(appWidgetId));
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+            Intent intent = new Intent(WIDGET_ACTION);
+            intent.setAction(WIDGET_ACTION);
+            intent.putExtra(Constants.PREFS_WIDGET_ID, Integer.toString(appWidgetId));
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             // Get the layout for the App Widget and attach an on-click listener to the button
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
             views.setOnClickPendingIntent(R.id.button, pendingIntent);
@@ -40,7 +42,8 @@ public class WidgetProvider extends AppWidgetProvider {
     @Override
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
-        if (intent.getAction().equals(Constants.ACTION_WIDGET_CLICK)) {
+        Log.v("", "received widget broadcast");
+        if (intent.getAction().equals(WIDGET_ACTION)) {
             SharedPreferences sharedPrefs = context.getSharedPreferences(Constants.PREFS_WIDGET_NAME, 0);
             String id = intent.getExtras().getString(Constants.PREFS_WIDGET_ID);
 
