@@ -14,8 +14,8 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_gravity="center_vertical|center_horizontal"
-        android:background="@android:color/holo_orange_dark"
-        android:text="@string/call_button"
-        android:textSize="@dimen/text_size"
+        android:background="@android:drawable/sym_action_call"
+        android:text="Call"
+        android:textSize="16dp"
         android:textStyle="bold" />
 </FrameLayout>
