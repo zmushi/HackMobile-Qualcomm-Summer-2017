@@ -5,16 +5,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.provider.Settings;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
+
+import java.text.NumberFormat;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -45,6 +51,11 @@ public class CallingActivity extends AppCompatActivity {
     private View mAnswerView;
     private View mRejectView;
     private AudioManager audioManager;
+    private Uri photo;
+    private int photoId;
+    private String name;
+    private String number;
+    private String photoUri;
 
     private Bundle extras;
 
@@ -137,9 +148,31 @@ public class CallingActivity extends AppCompatActivity {
         mRejectView = findViewById(R.id.rejectButton); // Answer call button handler
 
 
+        // Get name, number, phtoUri information
+        try {
+            name = extras.getString(Constants.EXTRA_KEY_NAME);
+            number = extras.getString(Constants.EXTRA_KEY_NUMBER);
+            photoUri = extras.getString(Constants.EXTRA_KEY_PHOTO);
+        }
+        catch (NullPointerException e){
+            name = "Mom";
+            number = "1 858-453-5343";
+            photoUri = "contact_picture";
+        }
+
         // Set the contact image
+        photo = Uri.parse(photoUri);
         final ImageView imageView = (ImageView) findViewById(R.id.contact_picture);
-        // imageView.setImageResource(images[currImage]); // currImage will be passed from the contacts
+
+        //View v =  inflater.inflate(R.layout.fragment_contact_display, container, false);
+
+        //ImageView imageView = (ImageView) v.findViewById(R.id.fragment_contact_display_photo_imageView);
+
+
+        //NumberFormat.Field idField = getDeclaredField(photo);
+        //photoId = idField.getInt(idField);
+        imageView.setImageURI(photo);
+        // imageView.setImageResource(images[photo]); // currImage will be passed from the contacts
 
         // Getting the default ringTone to play
         final MediaPlayer player = MediaPlayer.create(this, Settings.System.DEFAULT_RINGTONE_URI);
@@ -163,9 +196,6 @@ public class CallingActivity extends AppCompatActivity {
                 int repeats = extras.getInt(Constants.EXTRA_KEY_REPEATS);
                 if (repeats > 0) {
                     int interval= extras.getInt(Constants.EXTRA_KEY_INTERVAL);
-                    String name = extras.getString(Constants.EXTRA_KEY_NAME);
-                    String number = extras.getString(Constants.EXTRA_KEY_NUMBER);
-                    String photoUri = extras.getString(Constants.EXTRA_KEY_PHOTO);
                     CallScheduler CS = new CallScheduler(ctx, interval, repeats, interval,
                             name, number, photoUri);
                     CS.schedule();
