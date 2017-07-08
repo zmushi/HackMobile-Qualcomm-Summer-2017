@@ -1,6 +1,8 @@
 package control.pot.coffee.fakecallgenerator;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.provider.Settings;
 import android.support.v7.app.ActionBar;
@@ -9,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -34,6 +37,10 @@ public class CallingActivity extends AppCompatActivity {
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mHideHandler = new Handler();
     private View mContentView;
+    private View mAnswerView;
+    private View mRejectView;
+    //private AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE); // To later play the ringtone
+
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
         @Override
@@ -85,25 +92,54 @@ public class CallingActivity extends AppCompatActivity {
         }
     };
 
+    //mutes ALL STREAMS
+    //public void muteAll(){
+        //audioManager.setStreamVolume(audioManager.STREAM_ALARM ,audioManager.ADJUST_TOGGLE_MUTE, 1);
+        //audioManager.setStreamVolume(audioManager.STREAM_DTMF ,audioManager.ADJUST_TOGGLE_MUTE, 2);
+        //audioManager.setStreamVolume(audioManager.STREAM_MUSIC ,audioManager.ADJUST_TOGGLE_MUTE, 3);
+        //audioManager.setStreamVolume(audioManager.STREAM_NOTIFICATION ,audioManager.ADJUST_TOGGLE_MUTE, 4);
+        //audioManager.setStreamVolume(audioManager.STREAM_RING ,audioManager.ADJUST_TOGGLE_MUTE, 5);
+        //audioManager.setStreamVolume(audioManager.STREAM_SYSTEM ,audioManager.ADJUST_TOGGLE_MUTE, 6);
+        //audioManager.setStreamVolume(audioManager.STREAM_VOICE_CALL ,audioManager.ADJUST_TOGGLE_MUTE, 7);
+    //}
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_calling);
 
+        //muteAll();
+
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
-        //mAnswerView = findViewById
+        mAnswerView = findViewById(R.id.acceptButton); // Answer call button handler
+        mRejectView = findViewById(R.id.rejectButton); // Answer call button handler
 
+
+        // Set the contact image
+        final ImageView imageView = (ImageView) findViewById(R.id.contact_picture);
+        // imageView.setImageResource(images[currImage]); // currImage will be passed from the contacts
+
+        // Getting the default ringTone to play
         final MediaPlayer player = MediaPlayer.create(this, Settings.System.DEFAULT_RINGTONE_URI);
         player.start();
 
-
-        mContentView.setOnClickListener(new View.OnClickListener() {
+        //FOR WHEN THE ACCEPT BUTTON IS PRESSED
+        mAnswerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 player.stop();
+            }
+        });
+
+        // WHEN THE REJECT BUTTON IS PRESSED
+        mRejectView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                player.stop();
+                //NEED TO CALL ACTIVITY TO END THE APP
             }
         });
 
