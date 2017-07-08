@@ -3,8 +3,9 @@ package control.pot.coffee.fakecallgenerator;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
-public class MainActivity extends AppCompatActivity implements ContactsListFragment.ContactsListFragmentInterface {
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -12,8 +13,12 @@ public class MainActivity extends AppCompatActivity implements ContactsListFragm
         setContentView(R.layout.activity_main);
     }
 
-    //Method called when ContactListFragment has a contact clicked
-    public void onContactClicked(String lookupKey)    {
-        
+
+    public void searchContacts(View view) {
+
+    }
+
+    public void placeCall(View view) {
+
     }
 }
