@@ -10,15 +10,31 @@
     <string name="phone_nmber">1 858-543-5343</string>
 
     <!-- Main UI String-->
-    <string name="setting_contact">Contact:</string>
-    <string name="setting_delay">Delay:</string>
-    <string name="setting_s">s</string>
-    <string name="setting_name_dafault">Name</string>
-    <string name="hint_second">5</string>
-    <string name="call_button">place the call</string>
+    <string name="setting_repeat_text">Repeat Times</string>
+    <string name="setting_delay_text">Delay Seconds</string>
+    <string name="setting_interval_text">Interval Between Repeats</string>
     <string name="hint_search">Search Contacts</string>
     <string name="search_button">Search</string>
+    <string name="call_button">place the call</string>
+    <string name="setting_unit">s</string>
 
+    <string-array name="delay_array">
+        <item>10</item>
+        <item>30</item>
+        <item>180</item>
+    </string-array>
+
+    <string-array name="repeat_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="interval_array">
+        <item>10</item>
+        <item>30</item>
+        <item>180</item>
+    </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
