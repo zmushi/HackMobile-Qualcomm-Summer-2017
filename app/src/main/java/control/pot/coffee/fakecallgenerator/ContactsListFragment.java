@@ -31,7 +31,19 @@ public class ContactsListFragment extends Fragment implements
         LoaderManager.LoaderCallbacks<Cursor>,
         AdapterView.OnItemClickListener{
 
-    //Column from cursore and which views to bing them too
+    private ContactsListFragmentInterface mListener;
+
+    // Defines a variable for the search string
+    private String mSearchString;
+
+    ListView mContactsList;
+    private SimpleCursorAdapter mCursorAdapter;
+
+    Long mContactId;
+    String mContactKey;
+    Uri  mContactUri;
+
+    //Column from cursor and which views to bing them too
     @SuppressLint("InlinedApi")
     private static final String[] FROM_COLUMNS = {
             Build.VERSION.SDK_INT
@@ -44,34 +56,33 @@ public class ContactsListFragment extends Fragment implements
             R.id.contacts_list_item_name_textView
     };
 
-    ListView mContactsList;
-    private SimpleCursorAdapter mCursorAdapter;
 
-    Long mContactId;
-    Long mContactKey;
-    Uri mContactUri;
-
+    //Which columns in contacts to search
     @SuppressLint("InlinedApi")
     private static final String[] PROJECTION =
             {
-                    ContactsContract.Contacts._ID,
-                    ContactsContract.Contacts.LOOKUP_KEY,
-                    Build.VERSION.SDK_INT
-                            >= Build.VERSION_CODES.HONEYCOMB ?
-                            ContactsContract.Contacts.DISPLAY_NAME_PRIMARY :
-                            ContactsContract.Contacts.DISPLAY_NAME
-
+            /*
+             * The detail data row ID. To make a ListView work,
+             * this column is required.
+             */
+                    ContactsContract.Data._ID,
+                    // The primary display name
+                    Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
+                            ContactsContract.Data.DISPLAY_NAME_PRIMARY :
+                            ContactsContract.Data.DISPLAY_NAME,
+                    // The contact's _ID, to construct a content URI
+                    ContactsContract.Data.CONTACT_ID,
+                    // The contact's LOOKUP_KEY, to construct a content URI
+                    ContactsContract.Data.LOOKUP_KEY
             };
 
+    //Selection criteria for search
     @SuppressLint("InlinedApi")
     private static final String SELECTION =
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
                     ContactsContract.Contacts.DISPLAY_NAME_PRIMARY + " LIKE ?" :
                     ContactsContract.Contacts.DISPLAY_NAME + " LIKE ?";
 
-
-    // Defines a variable for the search string
-    private String mSearchString;
     // Defines the array to hold values that replace the ?
     private String[] mSelectionArgs = { mSearchString };
 
@@ -80,14 +91,7 @@ public class ContactsListFragment extends Fragment implements
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private ContactsListFragmentInterface mListener;
+    private static final String ARG_SEARCH_STRING= "ContactsListFragmentArgSearchString";
 
     public ContactsListFragment() {
         // Required empty public constructor
@@ -97,16 +101,13 @@ public class ContactsListFragment extends Fragment implements
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param searchString Parameter 1.
      * @return A new instance of fragment ContactsListFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static ContactsListFragment newInstance(String param1, String param2) {
+    public static ContactsListFragment newInstance(String searchString) {
         ContactsListFragment fragment = new ContactsListFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_SEARCH_STRING, searchString);
         fragment.setArguments(args);
         return fragment;
     }
@@ -115,26 +116,22 @@ public class ContactsListFragment extends Fragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mSearchString = getArguments().getString(ARG_SEARCH_STRING);
         }
     }
 
     //Set adapter for list view when activity is created
     public void onActivityCreated(Bundle savedInstanceState)    {
         super.onActivityCreated(savedInstanceState);
-
         mContactsList = (ListView) getActivity().findViewById(R.id.contacts_list_view);
-
         mCursorAdapter = new SimpleCursorAdapter(
                 getActivity(),
-                R.layout.fragment_contacts_list,
+                R.layout.fragment_contacts_list_item,
                 null,
                 FROM_COLUMNS, TO_IDS,
                 0);
         mContactsList.setAdapter(mCursorAdapter);
         mContactsList.setOnItemClickListener(this);
-
         getLoaderManager().initLoader(0, null, this);
     }
 
@@ -143,13 +140,6 @@ public class ContactsListFragment extends Fragment implements
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_contacts_list, container, false);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onContactClicked(uri);
-        }
     }
 
     @Override
@@ -167,23 +157,30 @@ public class ContactsListFragment extends Fragment implements
     public void onItemClick(
             AdapterView<?> parent, View item, int position, long rowID) {
 
-        /*
+
         // Get the Cursor
-        Cursor cursor = parent.getAdapter().getCursor();
+        Cursor cursor = mCursorAdapter.getCursor();
         // Move to the selected contact
         cursor.moveToPosition(position);
         // Get the _ID value
-        mContactId = getLong(CONTACT_ID_INDEX);
+        mContactId = cursor.getLong((int)CONTACT_ID_INDEX);
         // Get the selected LOOKUP KEY
-        mContactKey = getString(CONTACT_KEY_INDEX);
+        mContactKey = cursor.getString((int)CONTACT_KEY_INDEX);
         // Create the contact's content Uri
-        mContactUri = Contacts.getLookupUri(mContactId, mContactKey);
+        mContactUri = ContactsContract.Contacts.getLookupUri(mContactId, mContactKey);
         /*
          * You can use mContactUri as the content URI for retrieving
          * the details for a contact.
          */
-
+        onContactPressed(mContactUri);
     }
+
+    public void onContactPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onContactClicked(uri);
+        }
+    }
+
 
     @Override
     public Loader<Cursor> onCreateLoader(int loaderId, Bundle args) {
@@ -202,7 +199,6 @@ public class ContactsListFragment extends Fragment implements
                 mSelectionArgs,
                 null
         );
-
     }
 
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
@@ -233,6 +229,10 @@ public class ContactsListFragment extends Fragment implements
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
+    public void onNewSearchString(String searchString)   {
+        mSearchString = searchString;
+    }
+
     public interface ContactsListFragmentInterface {
         // TODO: Update argument type and name
         void onContactClicked(Uri uri);
