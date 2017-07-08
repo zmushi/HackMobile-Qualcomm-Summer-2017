@@ -60,6 +60,12 @@ public class CallingActivity extends AppCompatActivity {
     private ImageButton mEndCallView; // For end call button after call is answered
     private View mEndCallCircleView;//Endcallbuttonhandler
     private View mEndHandleCallView;//Endcallbuttonhandler
+    private ImageButton mAnswerCallView; // For end call button after call is answered
+    private View mAnswerCallCircleView;//Endcallbuttonhandler
+    private View mAnswerHandleCallView;//Endcallbuttonhandler
+    private ImageButton mRejectCallView; // For end call button after call is answered
+    private View mRejectCallCircleView;//Endcallbuttonhandler
+    private View mRejectHandleCallView;//Endcallbuttonhandler
     private View mEndContactView;//Endcallbuttonhandler
     private View mEndNumberView;//Endcallbuttonhandler
     private View mEndPictureView;//Endcallbuttonhandler
@@ -171,6 +177,14 @@ public class CallingActivity extends AppCompatActivity {
         mEndNumberView=findViewById(R.id.phone_number2);//Endcallbuttonhandler
         mEndPictureView=findViewById(R.id.contact_picture);//Endcallbuttonhandler
 
+        mAnswerCallView =(ImageButton) findViewById(R.id.acceptButton);
+        mAnswerCallCircleView = findViewById(R.id.green_circle);
+        mAnswerHandleCallView = findViewById(R.id.answer);
+
+        mRejectCallView = (ImageButton) findViewById(R.id.rejectButton);
+        mRejectCallCircleView = findViewById(R.id.red_circle);
+        mRejectHandleCallView = findViewById(R.id.reject);
+
 
         // Get name, number, phtoUri information
         try {
@@ -213,7 +227,17 @@ public class CallingActivity extends AppCompatActivity {
                 // TODO mute other sounds
 
                 // Change View to look like in call
-                setContentView(R.layout.activity_incall);
+                mAnswerCallView.setVisibility(View.INVISIBLE);
+                mAnswerCallCircleView.setVisibility(View.INVISIBLE);
+                mAnswerHandleCallView.setVisibility(View.INVISIBLE);
+
+                mRejectCallView.setVisibility(View.INVISIBLE);
+                mRejectCallCircleView.setVisibility(View.INVISIBLE);
+                mRejectHandleCallView.setVisibility(View.INVISIBLE);
+
+                mEndCallView.setVisibility(View.VISIBLE);
+                mEndCallCircleView.setVisibility(View.VISIBLE);
+                mEndHandleCallView.setVisibility(View.VISIBLE);
 
                 // Put screen to sleep
                 WindowManager.LayoutParams layoutParam = getWindow().getAttributes();
@@ -241,16 +265,17 @@ public class CallingActivity extends AppCompatActivity {
                 mEndContactView.setVisibility(View.INVISIBLE);
                 mEndNumberView.setVisibility(View.INVISIBLE);
                 mEndPictureView.setVisibility(View.INVISIBLE);
-*/
+                */
 
-                /*Log.v("MainACt", "mEncCallView = " + mEndCallView.toString());
+                //Log.v("MainACt", "mEncCallView = " + mEndCallView.toString());
                 mEndCallView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         activity.finish();
                     }
                 });
-                */
+
+
 
             }
 
