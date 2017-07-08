@@ -17,6 +17,7 @@
         android:background="@android:drawable/sym_action_call"
         android:elevation="14dp"
         android:text="Call"
+        android:textColor="@android:color/holo_red_dark"
         android:textSize="16dp"
         android:textStyle="bold" />
 </FrameLayout>
