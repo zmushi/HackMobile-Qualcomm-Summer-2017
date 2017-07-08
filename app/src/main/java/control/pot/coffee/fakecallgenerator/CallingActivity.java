@@ -261,16 +261,6 @@ public class CallingActivity extends AppCompatActivity {
                 layoutParam.flags |= WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
                 getWindow().setAttributes(layoutParam);
 
-                // Wait 5 seconds
-                try
-                {
-                    Thread.sleep(5000);
-                }
-                catch(InterruptedException ex)
-                {
-                    Thread.currentThread().interrupt();
-                }
-
 
                 /*
                 // Set everything to invisible
